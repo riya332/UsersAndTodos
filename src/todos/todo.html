@@ -1,0 +1,19 @@
+<div style="text-align:center" class='todocontainer'>
+    <h1>
+        Todos
+    </h1>
+    <div *ngFor='let todo of todos;let i = index'>
+        <section class="form-block">
+            <div class="form-group">
+                <clr-checkbox [(clrChecked)]="todo.completed">
+                    <span [ngClass]="{'strikeText': todo.completed}">{{todo.title}}</span>
+                    <span (click)='removeTodo(i)'>x</span>
+                </clr-checkbox>
+            </div>
+        </section>
+    </div>
+    <input class="new-todo" (blur)='addTodo()' placeholder="Missing something" autofocus="" [(ngModel)]="newTodo.title" (keyup.enter)="addTodo()">
+    <div>
+        <button class="btn btn-success-outline" (click)='saveTodos()'>Save</button>
+    </div>
+</div>

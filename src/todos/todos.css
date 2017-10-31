@@ -1,0 +1,7 @@
+.strikeText{
+    text-decoration: line-through;
+}
+.todocontainer {
+    height:500px;
+    overflow: auto;
+}
