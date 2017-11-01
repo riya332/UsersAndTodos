@@ -4,22 +4,22 @@
         </h1>
 </div>
 <div class="row">
-    <div *ngFor="let post of posts" class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+    <div *ngFor="let user of users" class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
         <div class="card"  >
             <div class="card-header">
-                {{post.name}}
+                {{user.name}}
             </div>
             <div class="card-block">
-                {{post.email}}
+                {{user.email}}
             </div>
             <div class="card-block">
-                {{post.phone}}
+                {{user.phone}}
             </div>
             <div class="card-block">
-                    {{post.website}}
+                    {{user.website}}
             </div>
             <div class="card-footer">
-                <button class="btn btn-primary" (click)="redirect(post?.id)">View Todos</button>
+                <button class="btn btn-primary" (click)="redirect(user?.id)">View Todos</button>
             </div>
         </div>
     </div>

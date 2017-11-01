@@ -8,14 +8,14 @@ import { Router } from '@angular/router';
   templateUrl: './users.html'
 })
 export class UsersComponent implements OnInit {
-  private posts: UserDetail[] = [];
+  public users: UserDetail[] = [];
   constructor(private _userService: UserService, private _router: Router) {}
   /**
    * Fetch the list of users
    */
   ngOnInit() {
     this._userService.getData()
-    .subscribe(users => this.posts = users);
+    .subscribe(users => this.users = users);
   }
   /**
    * redirects to the todos url
