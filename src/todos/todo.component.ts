@@ -8,39 +8,52 @@ import { Todo } from './todo';
   styleUrls: ['./todos.css']
 })
 export class TodoComponent implements OnInit {
-  title = 'app';
+  // List of all todos
   public todos: any;
-  public totalTodos = 0;
   public userId: number;
   public newTodo = new Todo();
   constructor(private activatedRoute: ActivatedRoute, private _todoService: TodoService) {}
     ngOnInit() {
       this.activatedRoute.params.subscribe((params: Params) => {
            this.userId = params['id'];
-          console.log(this.userId);
         });
         this._todoService.getTodo(this.userId).subscribe(res => {
           this.todos = res;
-          this.totalTodos = this.todos.length;
         },
           err => {
           });
     }
-    public saveTodos() {
-      this._todoService.saveTodos(this.todos, this.userId).subscribe(res => {this.todos = res; });
+    /**
+     *
+     * @param todo : The todo whose status has to be toggled
+     */
+    public toggleTodo(todo: Todo) {
+      this._todoService.saveTodoStatus(todo).subscribe(res => {});
     }
-    public addTodo() {
+    // public saveTodo(todo) {
+    //   this._todoService.saveNewTodo(todo).subscribe(res => {this.todos = res; });
+    // }
+    /**
+     * Adds a new todo and makes a service call to persist the todo
+     */
+    public saveTodo() {
       if (this.newTodo.title.length === 0) {
         return;
       }
-      this.newTodo.id = this.todos[this.totalTodos - 1].id + 1;
       this.newTodo.userId = this.userId;
-      this.todos.push(this.newTodo);
-      this.totalTodos ++;
-      this.newTodo = new Todo();
+      this._todoService.saveNewTodo(this.newTodo).subscribe(res => {
+        this.todos.push(res);
+        this.newTodo = new Todo();
+      });
     }
-    public removeTodo(index: number) {
-      this.todos.splice(index, 1);
-      this.totalTodos --;
+    /**
+     *
+     * @param index : Index at which todo is removed
+     * @param id : Id of the todo to be removed
+     */
+    public removeTodo(index: number, id: number) {
+      this._todoService.removeTodos(id).subscribe(res => {
+        this.todos.splice(index, 1);
+      });
     }
 }

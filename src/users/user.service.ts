@@ -6,22 +6,17 @@ import { UserDetail } from './user.model';
 @Injectable()
 export class UserService {
     constructor(private http: Http) { }
-    getData(): Promise<UserDetail[]> {
-        return this.http.get('https://jsonplaceholder.typicode.com/users')
-            .toPromise()
-            .then(this.extractData)
-            .catch(this.handleError);
-    }
-
-    private extractData(res: Response) {
+    /**
+     * extract json from response
+     * @param res Response of the api call
+     */
+    public extractData(res: Response) {
         return res.json() || [];
     }
-    private handleError(error: any) {
-        // In a real world app, we might use a remote logging infrastructure
-        // We'd also dig deeper into the error to get a better message
-        let errMsg = (error.message) ? error.message :
-            error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-        console.error(errMsg); // log to console instead
-        return Observable.throw(errMsg);
+    /**
+     * Fetch list of users
+     */
+    public getData(): Observable<UserDetail[]> {
+        return this.http.get('https://jsonplaceholder.typicode.com/users').map(this.extractData);
     }
 }

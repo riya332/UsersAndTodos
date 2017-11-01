@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from './user.service';
 import { UserDetail } from './user.model';
 import { Router } from '@angular/router';
@@ -7,20 +7,20 @@ import { Router } from '@angular/router';
   selector: 'app-users',
   templateUrl: './users.html'
 })
-export class UsersComponent {
-  title = 'app';
+export class UsersComponent implements OnInit {
   private posts: UserDetail[] = [];
-  private todos: any = [];
-  private errorMessage: any = '';
-  constructor(private _userService: UserService, private _router: Router) {
-    this.getUsers();
-  }
-  public getUsers() {
+  constructor(private _userService: UserService, private _router: Router) {}
+  /**
+   * Fetch the list of users
+   */
+  ngOnInit() {
     this._userService.getData()
-      .then(
-      users => this.posts = users
-      );
+    .subscribe(users => this.posts = users);
   }
+  /**
+   * redirects to the todos url
+   * @param id : user id whose todo has to be shown
+   */
   public redirect(id: number) {
     this._router.navigateByUrl('/todos/' + id);
   }

@@ -1,19 +1,20 @@
-<div style="text-align:center" class='todocontainer'>
-    <h1>
+<div class="row">
+<div class="col-lg-3 col-md-3 col-xs-12"></div>
+<div class='todocontainer col-lg-6  col-md-6 col-xs-12'>
+    <h1 style="text-align:center">
         Todos
     </h1>
     <div *ngFor='let todo of todos;let i = index'>
         <section class="form-block">
             <div class="form-group">
-                <clr-checkbox [(clrChecked)]="todo.completed">
+                <clr-checkbox [(clrChecked)]="todo.completed" (change)='toggleTodo(todo)'>
                     <span [ngClass]="{'strikeText': todo.completed}">{{todo.title}}</span>
-                    <span (click)='removeTodo(i)'>x</span>
+                    <button (click)='removeTodo(i, todo.id)' class="btn btn-danger btn-sm">Delete</button>
                 </clr-checkbox>
             </div>
         </section>
     </div>
-    <input class="new-todo" (blur)='addTodo()' placeholder="Missing something" autofocus="" [(ngModel)]="newTodo.title" (keyup.enter)="addTodo()">
-    <div>
-        <button class="btn btn-success-outline" (click)='saveTodos()'>Save</button>
-    </div>
+    <input type='text' class="new-todo" (blur)='saveTodo()' placeholder="Missing something" autofocus="" [(ngModel)]="newTodo.title" (keyup.enter)="saveTodo()">
+    <button class="btn btn-success-outline" (click)='saveTodo()'>Save</button>
+</div>
 </div>

@@ -6,7 +6,7 @@ describe('Todo', () => {
         expect(new Todo()).toBeTruthy();
     });
 
-    it('should accept values in the constructor', () => {
+    it('saveNewTodo: should accept values in the constructor', () => {
         let todo = new Todo({
             title: 'hello',
             completed: true
