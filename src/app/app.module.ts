@@ -18,6 +18,10 @@ const appRoutes: Routes = [
   {
     path: 'todos/:id',
     component: TodoComponent
+  },
+  {
+    path: '**',
+    redirectTo: '',
   }
 ];
 @NgModule({
